@@ -9,6 +9,8 @@ public class TimeController : MonoBehaviour
     int defaultTime = 60;
     int leftTime = 0;
     Slider slider;
+
+    IEnumerator currCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,14 +32,15 @@ public class TimeController : MonoBehaviour
         slider = gameObject.GetComponent<Slider>();
         slider.value = 100;
         leftTime = defaultTime;
-        StartCoroutine(updateSeconds());
+        currCoroutine = updateSeconds(defaultTime);         // coroutine 에 파라미터 넘길 때에는 이렇게 해야됨.
+        StartCoroutine(currCoroutine);
     }
 
     void timeOver() {
-
+        StopCoroutine(currCoroutine);
     }
 
-    IEnumerator updateSeconds()
+    IEnumerator updateSeconds(float second)
     {
         while (true)
         {

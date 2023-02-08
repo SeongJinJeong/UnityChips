@@ -847,6 +847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRotateDegree: 1
+  animationDuartion: 1.5
 --- !u!114 &618657257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -860,6 +861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRotateDegree: 1
+  animationDuartion: 2
 --- !u!1 &703081928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,7 +2728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4873ac7dce560646a6cdd7d5f76e5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultTime: 60
+  defaultTime: 10
 --- !u!1001 &3874244042995176562
 PrefabInstance:
   m_ObjectHideFlags: 0
