@@ -39,9 +39,11 @@ public class ChipController : MonoBehaviour
 
     private void OnEnable()
     {
-        transform.position = new Vector3(0f, -4.2f, 0f);
+        transform.position = new Vector3(0f, -10f, 0f);
         transform.eulerAngles= new Vector3(0f, 0f, 0f);
         transform.localScale = new Vector3(bigScale, bigScale, 0f);
+
+        throwChip("DOWN");
     }
     
     bool checkEnd()
@@ -60,12 +62,15 @@ public class ChipController : MonoBehaviour
     }
     //endregion
 
+    // 나중에 칩 던질 때 플레이어 위치 알려주자
     public void throwChip(string path)
     {
         from = path.ToLower();
 
         //todo 나중에 플레이어 가져오는거 구현해야 함.
         owner = GameObject.Find("MyPlayer");
+
+        transform.position = owner.transform.position;
 
         reachEnd = false;
     }
