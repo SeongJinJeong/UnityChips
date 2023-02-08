@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Chips
+    uniqueID: 1265273215
+    locked: 0
+  - name: UI
+    uniqueID: 3236629971
+    locked: 0
