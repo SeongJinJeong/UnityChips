@@ -47,7 +47,6 @@ public class TimeController : MonoBehaviour
             leftTime -= 1;
             slider.value = (1f / defaultTime) * leftTime;
             yield return new WaitForSeconds(1f);
-            Debug.Log("EXECUTED");
         }
     }
 }

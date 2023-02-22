@@ -16,7 +16,6 @@ public class ChipController : MonoBehaviour
     Vector3 MaxReachPos = new Vector3(3, 2);
     Vector3 MinReachPos = new Vector3(-3, -1);
 
-    string from = null;
     bool reachEnd = true;
     GameObject owner = null;
     Vector3 distance = Vector3.zero;
@@ -72,10 +71,8 @@ public class ChipController : MonoBehaviour
     //endregion
 
     // 나중에 칩 던질 때 플레이어 위치 알려주자
-    public void throwChip(string path)
+    public void throwChip()
     {
-        from = path.ToLower();
-
         //todo 나중에 플레이어 가져오는거 구현해야 함.
         owner = GameObject.Find("MyPlayer");
         transform.position = owner.transform.position;
@@ -84,6 +81,8 @@ public class ChipController : MonoBehaviour
         this.distance = new Vector3(Mathf.Abs(reachPos.x - owner.transform.position.x), Mathf.Abs(reachPos.y - owner.transform.position.y));
 
         reachEnd = false;
+
+        Debug.Log("Throw Chip");
     }
 
     void updateAnim()
@@ -111,80 +110,19 @@ public class ChipController : MonoBehaviour
     
     void changePos()
     {
-        //switch (from)
-        //{
-        //    case "left":
-        //        moveFromLeft();
-        //        break;
-        //    case "right":
-        //        moveFromRight();
-        //        break;
-        //    case "up":
-        //        moveFromUp();
-        //        break;
-        //    case "down":
-        //        moveFromDown();
-        //        break;
-        //    default:
-        //        Debug.LogError("Direction is not defined");
-        //        break;
-        //}
-
         this.moveChip();
     }
 
-    void moveFromLeft()
-    {
-        float moveVal = Mathf.Abs(owner.transform.position.x) / animationDuartion * Time.deltaTime;
-        Vector3 currPos = transform.position;
-        transform.position = new Vector3(currPos.x + moveVal, 0f, 0f);
-    }
-    void moveFromRight()
-    {
-        float moveVal = -owner.transform.position.x / animationDuartion * Time.deltaTime;
-        Vector3 currPos = transform.position;
-        transform.position = new Vector3(currPos.x + moveVal, 0f, 0f);
-    }
-    void moveFromUp()
-    {
-        float dt = Time.deltaTime;
-        float moveValX = Mathf.Abs(distance.x / (animationDuartion - this.tick) * dt);
-        float moveValY = Mathf.Abs(distance.y / (animationDuartion - this.tick) * dt);
-        this.tick += dt;
-
-        Vector3 currPos = transform.position;
-
-        if (owner.transform.position.x > 0)
-            moveValX = -moveValX;
-        if (owner.transform.position.y > 0)
-            moveValY = -moveValY;
-
-        transform.position = new Vector3(currPos.x + moveValX, currPos.y + moveValY, 0f);
-    }
-    void moveFromDown()
-    {
-        float moveValX = Mathf.Abs(owner.transform.position.x) / animationDuartion * Time.deltaTime;
-        float moveValY = Mathf.Abs(owner.transform.position.y) / animationDuartion * Time.deltaTime;
-
-        Vector3 currPos = transform.position;
-
-        if (currPos.x > 0)
-            moveValX = -moveValX;
-        if (currPos.y > 0)
-            moveValY = -moveValY;
-
-        transform.position = new Vector3(currPos.x + moveValX, currPos.y + moveValY, 0f);
-    }
-
+    
     void moveChip()
     {
         float moveValX = Mathf.Abs(distance.x / (animationDuartion - this.tick) * this.currDt);
         float moveValY = Mathf.Abs(distance.y / (animationDuartion - this.tick) * this.currDt);
         this.tick += this.currDt;
 
-        if (owner.transform.position.x > 0)
+        if (this.reachPos.x - owner.transform.position.x > 0)
             moveValX = -moveValX;
-        if (owner.transform.position.y > 0)
+        if (this.reachPos.y - owner.transform.position.y < 0)
             moveValY = -moveValY;
 
         Vector3 currPos = transform.position;

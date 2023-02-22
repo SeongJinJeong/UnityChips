@@ -23,7 +23,6 @@ public class ChipContainer : MonoBehaviour
         {
             string chipName = gameObject.name.Substring(0, gameObject.name.Length -"Container".Length);
             string chipPath= "Prefabs/Game/" + chipName;
-            Debug.Log(chipName + " " + chipPath);
             GameObject chip = Resources.Load(chipPath) as GameObject;
             GameObject instantiatedChip = Instantiate(chip);
             Chips.Add(instantiatedChip);
@@ -33,5 +32,18 @@ public class ChipContainer : MonoBehaviour
         }
 
         return this;
+    }
+
+    public void throwChips(int count)
+    {
+        if(this.Chips.Count < count)
+        {
+            this.generateChips(count - this.Chips.Count);
+        }
+        for(var i=0; i<count; i++)
+        {
+            this.Chips[i].SetActive(true);
+            this.Chips[i].GetComponent<ChipController>().throwChip();
+        }
     }
 }
