@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 577264448937351495, guid: 6a3f1a8596a5d8a4b9a82f7753e42b64, type: 3}
       propertyPath: m_Name
-      value: ChipGreen9
+      value: ChipGreen
       objectReference: {fileID: 0}
     - target: {fileID: 2567378502760734516, guid: 6a3f1a8596a5d8a4b9a82f7753e42b64, type: 3}
       propertyPath: m_RootOrder
@@ -54,6 +54,10 @@ PrefabInstance:
     - target: {fileID: 2567378502760734516, guid: 6a3f1a8596a5d8a4b9a82f7753e42b64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023321791146422955, guid: 6a3f1a8596a5d8a4b9a82f7753e42b64, type: 3}
+      propertyPath: defaultRotateDegree
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6038395898203426636, guid: 6a3f1a8596a5d8a4b9a82f7753e42b64, type: 3}
       propertyPath: m_SortingOrder

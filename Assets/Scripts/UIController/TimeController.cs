@@ -38,6 +38,7 @@ public class TimeController : MonoBehaviour
 
     void timeOver() {
         StopCoroutine(currCoroutine);
+        GameManager.getInstance().timeOver();
     }
 
     IEnumerator updateSeconds(float second)

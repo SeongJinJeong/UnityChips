@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultRotateDegree: 1
-  animationDuartion: 2
+  animationDuartion: 1
+  bigScale: 1.2
+  defaultScale: 0.7
 --- !u!114 &8371232771341179708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,3 +116,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultRotateDegree: 50
   animationDuartion: 1.5
+  bigScale: 1.2
+  defaultScale: 0.7

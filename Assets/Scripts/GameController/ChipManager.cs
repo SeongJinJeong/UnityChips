@@ -5,19 +5,14 @@ using UnityEngine;
 namespace CHEEP_TYPE{
     static class Cheep_Type
     {
-        public static Dictionary<string,int> CHIP = new Dictionary<string,int>()
+        public static Dictionary<string,string> CHIP = new Dictionary<string,string>()
         {
-            {"Green", 0 },
-            {"Blue", 1 },
-            {"Red", 1 },
-            {"White", 1 },
-            {"Black", 1 }
+            {"Green", "Green" },
+            {"Blue", "Blue" },
+            {"Red", "Red" },
+            {"White", "White" },
+            {"Black", "Black" }
         };
-        public const int Green = 0;
-        public const int Blue = 1;
-        public const int Red = 2;
-        public const int White = 3;
-        public const int Black = 4;
     }
 }
 
@@ -49,11 +44,12 @@ public class ChipManager : MonoBehaviour
         }
     }
 
-    public void throwChipByName(int count, int chipType) {
+    public void throwChipByName(int count, string chipType) {
         ChipContainer container = null;
         for(var i=0; i<this.ChipContainers.Count; i++)
         {
-            if (this.ChipContainers[i].gameObject.name == "ChipGreenContainer")
+            string containerName = "Chip" + chipType + "Container";
+            if (this.ChipContainers[i].gameObject.name == containerName)
             {
                 container = this.ChipContainers[i];
                 break;

@@ -335,7 +335,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 167745230}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1906052701}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: onClickDie
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &167745230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,7 +747,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 611572407}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1906052701}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: onClickCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &611572407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,13 +1057,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1906052701}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: onClickCall
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1856,7 +1880,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1596696178}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1906052701}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: onClickHalf
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1596696178
 MonoBehaviour:
   m_ObjectHideFlags: 0
