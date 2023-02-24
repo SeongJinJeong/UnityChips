@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ListContent
   layers:
   - Default
   - TransparentFX
@@ -46,4 +47,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3236629971
+    locked: 0
+  - name: Room
+    uniqueID: 3331253635
     locked: 0
