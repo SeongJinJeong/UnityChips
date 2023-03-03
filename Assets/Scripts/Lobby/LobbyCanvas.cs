@@ -28,8 +28,7 @@ public class LobbyCanvas : MonoBehaviour
     private void addList()
     {
         int index = listContent.transform.childCount % 2 + 1;
-        //GameObject list = Resources.Load<GameObject>("Prefabs/Lobby/ScrollList" + index);
-        GameObject list = Resources.Load<GameObject>("Prefabs/Lobby/Scroll");
+        GameObject list = Resources.Load<GameObject>("Prefabs/Lobby/ScrollList" + index);
         GameObject instantiatedList = Instantiate(list);
         instantiatedList.transform.SetParent(listContent.transform);
         instantiatedList.transform.localScale = new Vector3(1,1,1);
