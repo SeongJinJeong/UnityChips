@@ -12,7 +12,6 @@ namespace Network
     public class NetHandler
     {
         private string URL = "ws://localhost:3231";
-        private int PORT = -1;
         private static NetHandler instance = null;
         public static NetHandler getInstance()
         {
