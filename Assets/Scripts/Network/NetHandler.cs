@@ -62,8 +62,9 @@ namespace Network
         private void onLoginSucceed(SocketIOResponse res)
         {
             Debug.Log(res);
-            Debug.Log(res.GetValue<DataLoginSucceed>());
-            DataLoginSucceed data = JsonUtility.FromJson<DataLoginSucceed>(res.ToString());
+            Debug.Log(res.ToString());
+            Debug.Log(res.GetValue<string>());
+            DataLoginSucceed data = JsonUtility.FromJson<DataLoginSucceed>(res.GetValue<string>(0));
             Debug.Log(data.id);
         }
     }
