@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Network;
+using NetworkDataStuct;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -35,15 +36,13 @@ public class NetworkManager : MonoBehaviour
         this.netHandler.connect();
     }
 
-    public void emitMsg (string value)
+    public void emitMsg (string ev, object value)
     {
-        Data data = new Data();
-        data.name = value;
-        this.netHandler.emit(data);
+        this.netHandler.emit(ev,value);
     }
-}
 
-public class Data
-{
-    public string name;
+    public void onMsg (object data)
+    {
+        Debug.Log(data);
+    }
 }

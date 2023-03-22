@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WebSocketSharp;
 using SocketIOClient;
+using NetworkDataStuct;
 
 namespace Network
 {
@@ -30,6 +31,7 @@ namespace Network
         public NetHandler()
         {
             this._initSocket();
+            this._initListener();
         }
 
         private void _initSocket(string path = null, int Port = 0)
@@ -42,17 +44,27 @@ namespace Network
             };
         }
 
+        private void _initListener()
+        {
+            this.socket.On("loginSucceed", this.onLoginSucceed);
+        }
+
         public void connect()
         {
             this.socket.ConnectAsync();
         }
 
-        public void emit(object msg)
+        public void emit(string ev, object msg)
         {
-            string json = JsonUtility.ToJson(msg);
-            Debug.Log(json);
-            this.socket.EmitAsync("onLogin", json);
+            this.socket.EmitAsync(ev, msg);
         }
 
+        private void onLoginSucceed(SocketIOResponse res)
+        {
+            Debug.Log(res);
+            Debug.Log(res.GetValue<DataLoginSucceed>());
+            DataLoginSucceed data = JsonUtility.FromJson<DataLoginSucceed>(res.ToString());
+            Debug.Log(data.id);
+        }
     }
 }
