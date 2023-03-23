@@ -13,3 +13,6 @@
 4. 서버 DTO 에 맞춘 네트워크 폼 제작
 5. 방 생성 및 입장 기능 제작
 6. 안드로이드 빌드 후 배포 
+
+#### Etc.
+- 서버 레포지토리 : https://github.com/SeongJinJeong/SocketServer
