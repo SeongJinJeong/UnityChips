@@ -3,7 +3,6 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WebSocketSharp;
 using SocketIOClient;
 using NetworkDataStuct;
 
@@ -48,6 +47,11 @@ namespace Network
             this.socket.On("loginSucceed", this.onLoginSucceed);
         }
 
+        public void AddListener(string eventName, Action<SocketIOResponse> cb)
+        {
+            this.socket.On(eventName, cb);
+        }
+
         public void connect()
         {
             this.socket.ConnectAsync();
@@ -65,6 +69,13 @@ namespace Network
             Debug.Log(res.GetValue<string>());
             DataLoginSucceed data = JsonUtility.FromJson<DataLoginSucceed>(res.GetValue<string>(0));
             Debug.Log(data.id);
+            Action<SocketIOResponse> cb = (data) =>
+            {
+                Util.parseJson<DataLogin>(data.GetValue<string>());
+            };
+            this.AddListener("hi", cb);
         }
+
+
     }
 }
