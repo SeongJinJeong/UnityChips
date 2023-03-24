@@ -4,6 +4,7 @@ using UnityEngine;
 using Network;
 using NetworkDataStuct;
 using SocketIOClient;
+using System;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -29,9 +30,8 @@ public class NetworkManager : MonoBehaviour
     }
 
     private NetHandler netHandler = null;
-    private bool initFinish = false;
     // Start is called before the first frame update
-    async void Start()
+    private async void Start()
     {
         this.netHandler = new NetHandler();
         await this.netHandler.connect();

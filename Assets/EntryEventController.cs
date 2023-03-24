@@ -29,11 +29,12 @@ public class EntryEventController : MonoBehaviour
 
     public void sendMessage()
     {
-        DataLogin data = new DataLogin();
-        data.name = textField.GetComponent<TextMeshProUGUI>().text;
-        string json = JsonUtility.ToJson(data);
-        this.networkManager.emitMsg("onLogin",json);
+        string name = textField.GetComponent<TextMeshProUGUI>().text;
+        networkManager.getInstance().emitLogin(name);
         button.GetComponent<Button>().interactable = false;
         nameInput.GetComponent<TMPro.TMP_InputField>().interactable = false;
+
+        //todo Circular Progress ¸¸µé±â & Gray Layer ±ò±â
+
     }
 }
