@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using SocketIOClient;
 using NetworkDataStuct;
@@ -46,14 +47,22 @@ namespace Network
             this.socket.On(eventName, cb);
         }
 
-        public void connect()
+        public Task connect()
         {
-            this.socket.ConnectAsync();
+            return this.socket.ConnectAsync();
         }
 
-        public void emit(string ev, string msg)
+        public async void emit(string ev, string msg)
         {
-            this.socket.EmitAsync(ev, msg);
+            if (this.socket.Connected == false)
+                return;
+
+            await this.socket.EmitAsync(ev, msg);
+        }
+
+        public async void disconnect()
+        {
+            await this.socket.DisconnectAsync();
         }
     }
 }

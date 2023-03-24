@@ -29,13 +29,18 @@ public class NetworkManager : MonoBehaviour
     }
 
     private NetHandler netHandler = null;
-
+    private bool initFinish = false;
     // Start is called before the first frame update
-    void Start()
+    async void Start()
     {
         this.netHandler = new NetHandler();
-        this.netHandler.connect();
+        await this.netHandler.connect();
         this.initReciver();
+    }
+
+    private void OnDestroy()
+    {
+        this.netHandler.disconnect();
     }
 
     private void initReciver()
@@ -116,6 +121,32 @@ public class NetworkManager : MonoBehaviour
         EmitDataLeaveGameRoom data = new EmitDataLeaveGameRoom();
         data.roomid = roomid;
         this.netHandler.emit("onLeaveGameRoom", Util.toJson(data));
+    }
+
+    public void emitGameStart(string roomid, int budgetPerPlayer, int playerCount, int timer, int entryFee)
+    {
+        EmitDataGameStart data = new EmitDataGameStart();
+        data.roomid = roomid;
+        data.budgetPerPlayer = budgetPerPlayer;
+        data.playerCount = playerCount;
+        data.timer = timer;
+        data.entryFee = entryFee;
+        this.netHandler.emit("onGameStart", Util.toJson(data));
+    }
+
+    public void emitPlayerReady(string roomid)
+    {
+        EmitDataPlayerReady data = new EmitDataPlayerReady();
+        data.roomid = roomid;
+        this.netHandler.emit("onPlayerReady", Util.toJson(data));
+    }
+
+    public void emitPlayerBet(string roomid, string betType)
+    {
+        EmitDataPlayerBet data = new EmitDataPlayerBet();
+        data.roomid = roomid;
+        data.betType = betType;
+        this.netHandler.emit("onPlayerBet", Util.toJson(data));
     }
     #endregion
 }
