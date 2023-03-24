@@ -57,7 +57,7 @@ namespace Network
             this.socket.ConnectAsync();
         }
 
-        public void emit(string ev, object msg)
+        public void emit(string ev, string msg)
         {
             this.socket.EmitAsync(ev, msg);
         }
@@ -67,11 +67,11 @@ namespace Network
             Debug.Log(res);
             Debug.Log(res.ToString());
             Debug.Log(res.GetValue<string>());
-            DataLoginSucceed data = JsonUtility.FromJson<DataLoginSucceed>(res.GetValue<string>(0));
+            DataOnLoginSucceed data = JsonUtility.FromJson<DataOnLoginSucceed>(res.GetValue<string>(0));
             Debug.Log(data.id);
             Action<SocketIOResponse> cb = (data) =>
             {
-                Util.parseJson<DataLogin>(data.GetValue<string>());
+                Util.parseJson<EmitDataLogin>(data.GetValue<string>());
             };
             this.AddListener("hi", cb);
         }
