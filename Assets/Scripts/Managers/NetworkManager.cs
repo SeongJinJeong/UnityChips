@@ -47,7 +47,7 @@ public class NetworkManager : MonoBehaviour
         this.netHandler.AddListener("onLeaveGameRoom", this.onLeaveGameRoom);
     }
 
-    #region [ Reciever Callbacks ]
+    #region [ Reciever ]
     private void onLoginSucceed(SocketIOResponse data)
     {
         Util.logData<DataOnLoginSucceed>(data);

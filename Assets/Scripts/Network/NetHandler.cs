@@ -29,7 +29,6 @@ namespace Network
         public NetHandler()
         {
             this._initSocket();
-            this._initListener();
         }
 
         private void _initSocket(string path = null, int Port = 0)
@@ -40,11 +39,6 @@ namespace Network
             {
                 Debug.Log("SERVER CONNECTED");
             };
-        }
-
-        private void _initListener()
-        {
-            this.socket.On("loginSucceed", this.onLoginSucceed);
         }
 
         public void AddListener(string eventName, Action<SocketIOResponse> cb)
@@ -61,21 +55,5 @@ namespace Network
         {
             this.socket.EmitAsync(ev, msg);
         }
-
-        private void onLoginSucceed(SocketIOResponse res)
-        {
-            Debug.Log(res);
-            Debug.Log(res.ToString());
-            Debug.Log(res.GetValue<string>());
-            DataOnLoginSucceed data = JsonUtility.FromJson<DataOnLoginSucceed>(res.GetValue<string>(0));
-            Debug.Log(data.id);
-            Action<SocketIOResponse> cb = (data) =>
-            {
-                Util.parseJson<EmitDataLogin>(data.GetValue<string>());
-            };
-            this.AddListener("hi", cb);
-        }
-
-
     }
 }
