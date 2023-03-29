@@ -8,7 +8,7 @@ using System;
 
 public class NetworkManager : MonoBehaviour
 {
-    private NetworkManager instance;
+    private static NetworkManager instance;
     private void Awake()
     {
         if(instance == null)
@@ -21,7 +21,7 @@ public class NetworkManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    public NetworkManager getInstance()
+    public static NetworkManager getInstance()
     {
         if (instance == null)
             return null;
@@ -55,8 +55,10 @@ public class NetworkManager : MonoBehaviour
     #region [ Reciever ]
     private void onLoginSucceed(SocketIOResponse data)
     {
+        Debug.Log("LoginSucceed");
         Util.logData<DataOnLoginSucceed>(data);
         // go to lobby scene
+        MainManager.getInstance().changeSceneToLobby();
     }
 
     private void onEnterLobbySucceed(SocketIOResponse data)

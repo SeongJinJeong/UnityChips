@@ -6,7 +6,7 @@ public static class Util
 {
     public static void logData<T>(SocketIOClient.SocketIOResponse data)
     {
-        Debug.Log(Util.parseJson<T>(data.GetValue<string>()));
+        Debug.Log(data.GetValue<string>(0));
     }
     public static T parseJson<T>(string data)
     {
