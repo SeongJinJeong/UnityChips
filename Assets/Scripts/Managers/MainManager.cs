@@ -27,13 +27,13 @@ public class MainManager : MonoBehaviour
         return instance;
     }
 
-    private bool loadScene = false;
+    private bool isLoadLobby = false;
     private void Update()
     {
-        if(this.loadScene == true)
+        if(this.isLoadLobby == true)
         {
             StartCoroutine(loadLobbyScene());
-            this.loadScene = false;
+            this.isLoadLobby = false;
         }
     }
 
@@ -44,7 +44,7 @@ public class MainManager : MonoBehaviour
 
     public void changeSceneToLobby()
     {
-        this.loadScene = true;
+        this.isLoadLobby = true;
     }
 
     private IEnumerator loadLobbyScene()
