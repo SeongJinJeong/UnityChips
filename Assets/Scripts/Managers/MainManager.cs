@@ -40,6 +40,15 @@ public class MainManager : MonoBehaviour
     private void OnEnable()
     {
         //StartCoroutine(loadLobbyScene());
+        this.initScreenResolution();
+    }
+
+    private void initScreenResolution()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        Debug.Log("SCREEN WIDTH :"+Screen.width+"SCREEN HEIGHT :" + Screen.height);
+        int defaultSize = (int)Mathf.Floor(Screen.height / 9);
+        Screen.SetResolution(defaultSize * 16, defaultSize * 9,true);
     }
 
     public void changeSceneToLobby()
