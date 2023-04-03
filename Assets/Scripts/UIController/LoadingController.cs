@@ -32,7 +32,7 @@ public class LoadingController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 0, currRotate);
             if (currRotate > 360)
                 currRotate = 0f;
-            yield return null;
+            yield return new WaitForFixedUpdate();
         }
     }
 }
