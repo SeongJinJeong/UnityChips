@@ -59,6 +59,9 @@ public class NetworkManager : MonoBehaviour
         Util.logData<DataOnLoginSucceed>(data);
         // go to lobby scene
         MainManager.getInstance().changeSceneToLobby();
+
+        DataPlayer playerData = JsonUtility.FromJson<DataPlayer>(data.GetValue<string>(0));
+        PlayerDataContainer.getInstance().setPlayerData(playerData);
     }
 
     private void onEnterLobbySucceed(SocketIOResponse data)

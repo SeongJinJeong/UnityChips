@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainManager : MonoBehaviour
 {
+    public static string currScene = "";
+
     static private MainManager instance;
     private void Awake()
     {
@@ -34,6 +36,7 @@ public class MainManager : MonoBehaviour
         {
             StartCoroutine(loadLobbyScene());
             this.isLoadLobby = false;
+            currScene = "Lobby";
         }
     }
 

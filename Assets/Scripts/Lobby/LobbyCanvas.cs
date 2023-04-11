@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LobbyCanvas : MonoBehaviour
 {
@@ -15,8 +16,10 @@ public class LobbyCanvas : MonoBehaviour
         listContent = GameObject.FindGameObjectWithTag("ListContent");
         for(var i=0; i<20; i++)
         {
-            this.addList();
+            this._addList();
         }
+
+        this._processEnterLobby();
     }
 
     // Update is called once per frame
@@ -25,12 +28,36 @@ public class LobbyCanvas : MonoBehaviour
         
     }
 
-    private void addList()
+    private void _addList()
     {
         int index = listContent.transform.childCount % 2 + 1;
         GameObject list = Resources.Load<GameObject>("Prefabs/Lobby/ScrollList" + index);
         GameObject instantiatedList = Instantiate(list);
         instantiatedList.transform.SetParent(listContent.transform);
         instantiatedList.transform.localScale = new Vector3(1,1,1);
+    }
+
+    private void _processEnterLobby()
+    {
+        GameObject grayLayer = Resources.Load<GameObject>("Prefabs/Common/GrayLayer");
+        GameObject grayLayerObject = Instantiate<GameObject>(grayLayer);
+
+        GameObject loading = Resources.Load<GameObject>("Prefabs/Common/Loading");
+        GameObject loadingObject = Instantiate<GameObject>(loading);
+
+        NetworkManager.getInstance().emitEnterLobby();
+    }
+
+    public void onEnterLobbySucceed()
+    {
+        this._onEnterLobbySucceed(); 
+    }
+    private void _onEnterLobbySucceed()
+    {
+        GameObject.Find("TextUserName").GetComponent<TMP_Text>().text = PlayerDataContainer.getInstance().getPlayerData().name;
+    }
+    public void test()
+    {
+        Debug.Log("test");
     }
 }

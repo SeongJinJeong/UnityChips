@@ -102,4 +102,12 @@ namespace NetworkDataStuct
         public int code;
     }
     #endregion
+
+    #region
+    public class DataPlayer
+    {
+        public string name;
+        public string id;
+    }
+    #endregion
 }
