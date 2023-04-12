@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - ListContent
+  - LobbyManager
+  - GrayLayer
+  - Loading
   layers:
   - Default
   - TransparentFX

@@ -18,8 +18,6 @@ public class LobbyCanvas : MonoBehaviour
         {
             this._addList();
         }
-
-        this._processEnterLobby();
     }
 
     // Update is called once per frame
@@ -37,27 +35,5 @@ public class LobbyCanvas : MonoBehaviour
         instantiatedList.transform.localScale = new Vector3(1,1,1);
     }
 
-    private void _processEnterLobby()
-    {
-        GameObject grayLayer = Resources.Load<GameObject>("Prefabs/Common/GrayLayer");
-        GameObject grayLayerObject = Instantiate<GameObject>(grayLayer);
-
-        GameObject loading = Resources.Load<GameObject>("Prefabs/Common/Loading");
-        GameObject loadingObject = Instantiate<GameObject>(loading);
-
-        NetworkManager.getInstance().emitEnterLobby();
-    }
-
-    public void onEnterLobbySucceed()
-    {
-        this._onEnterLobbySucceed(); 
-    }
-    private void _onEnterLobbySucceed()
-    {
-        GameObject.Find("TextUserName").GetComponent<TMP_Text>().text = PlayerDataContainer.getInstance().getPlayerData().name;
-    }
-    public void test()
-    {
-        Debug.Log("test");
-    }
+    
 }

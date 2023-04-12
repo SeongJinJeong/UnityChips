@@ -5,6 +5,7 @@ using Network;
 using NetworkDataStuct;
 using SocketIOClient;
 using System;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class NetworkManager : MonoBehaviour
         return instance;
     }
 
+    private object currentManager = null;
     private NetHandler netHandler = null;
     // Start is called before the first frame update
     private async void Start()
@@ -36,6 +38,9 @@ public class NetworkManager : MonoBehaviour
         this.netHandler = new NetHandler();
         await this.netHandler.connect();
         this.initReciver();
+
+        SceneManager.sceneLoaded -= this.onSceneLoaded;
+        SceneManager.sceneLoaded += this.onSceneLoaded;
     }
 
     private void OnDestroy()
@@ -67,7 +72,8 @@ public class NetworkManager : MonoBehaviour
     private void onEnterLobbySucceed(SocketIOResponse data)
     {
         Util.logData<DataOnEnterLobbySucceed>(data);
-        // initialize Lobby
+        LobbyManager manager = (LobbyManager)this.currentManager;
+        manager.onEnterLobbySucceed();
     }
 
     private void onGetLobbyRooms(SocketIOResponse data)
@@ -154,4 +160,12 @@ public class NetworkManager : MonoBehaviour
         this.netHandler.emit("onPlayerBet", Util.toJson(data));
     }
     #endregion
+
+    void onSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "Lobby")
+        {
+            this.currentManager = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
+        }
+    }
 }
