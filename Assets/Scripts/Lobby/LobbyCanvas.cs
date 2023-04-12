@@ -14,10 +14,6 @@ public class LobbyCanvas : MonoBehaviour
     void Start()
     {
         listContent = GameObject.FindGameObjectWithTag("ListContent");
-        for(var i=0; i<20; i++)
-        {
-            this._addList();
-        }
     }
 
     // Update is called once per frame
@@ -26,13 +22,14 @@ public class LobbyCanvas : MonoBehaviour
         
     }
 
-    private void _addList()
+    public void addList(string playerName)
     {
         int index = listContent.transform.childCount % 2 + 1;
         GameObject list = Resources.Load<GameObject>("Prefabs/Lobby/ScrollList" + index);
         GameObject instantiatedList = Instantiate(list);
         instantiatedList.transform.SetParent(listContent.transform);
         instantiatedList.transform.localScale = new Vector3(1,1,1);
+        instantiatedList.GetComponent<TMP_Text>().text = playerName;
     }
 
     

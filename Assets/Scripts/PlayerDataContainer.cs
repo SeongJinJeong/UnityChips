@@ -14,6 +14,7 @@ public class PlayerDataContainer
     }
 
     private DataPlayer playerInfo = null;
+    private DataRoomData roomInfo = null;
     public void setPlayerData(DataPlayer data)
     {
         if (data.roomid == null)
@@ -24,5 +25,15 @@ public class PlayerDataContainer
     public DataPlayer getPlayerData()
     {
         return this.playerInfo;
+    }
+
+    public void setRoomData(DataRoomData data)
+    {
+        this.roomInfo = data;
+    }
+
+    public DataRoomData getRoomData()
+    {
+        return this.roomInfo;
     }
 }

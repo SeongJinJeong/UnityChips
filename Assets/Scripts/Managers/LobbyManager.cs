@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using NetworkDataStuct;
+using System.Threading;
 
 public class LobbyManager : MonoBehaviour
 {
     [SerializeField]
     GameObject NameField;
 
-    private bool _lobbyEnterSucceed = false;
     // Start is called before the first frame update
     void Start()
     {
         this._processEnterLobby();
-    }
-
-    private void Update()
-    {
-        //if(this._lobbyEnterSucceed == true)
-        //{
-        //    this._onEnterLobbySucceed();
-        //    this._lobbyEnterSucceed = false;
-        //}
     }
 
     private void _processEnterLobby()
@@ -39,21 +30,16 @@ public class LobbyManager : MonoBehaviour
     public void onEnterLobbySucceed()
     {
         Debug.Log("Enter Lobby Succeed!");
-        //this._lobbyEnterSucceed = true;
         this._onEnterLobbySucceed(); // <-- This is not working.
     }
     public void _onEnterLobbySucceed()
     {
-        UnityMainThreadDispatcher.Instance().Enqueue(() =>
-        {
-            Destroy(GameObject.FindGameObjectWithTag("GrayLayer"));
-            Destroy(GameObject.FindGameObjectWithTag("Loading"));
+        Destroy(GameObject.FindGameObjectWithTag("GrayLayer"));
+        Destroy(GameObject.FindGameObjectWithTag("Loading"));
 
-            DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
-            NameField.GetComponent<TMP_Text>().text = playerData.name;
-
-            NetworkManager.getInstance().emitEnterRoom(playerData.id);
-        });
+        DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
+        NameField.GetComponent<TMP_Text>().text = playerData.name;
+        NetworkManager.getInstance().emitEnterRoom(playerData.id);
     }
 
     public void onEnterRoomSucceed()

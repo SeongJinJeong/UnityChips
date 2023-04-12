@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class MainManager : MonoBehaviour
 {
     public static string currScene = "";
 
+    static public Thread mainThread;
     static private MainManager instance;
     private void Awake()
     {
@@ -20,6 +22,10 @@ public class MainManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    private void Start()
+    {
+        mainThread = Thread.CurrentThread;
     }
     public static MainManager getInstance()
     {
@@ -56,7 +62,8 @@ public class MainManager : MonoBehaviour
 
     public void changeSceneToLobby()
     {
-        this.isLoadLobby = true;
+        //this.isLoadLobby = true;
+        StartCoroutine(loadLobbyScene());
     }
 
     private IEnumerator loadLobbyScene()

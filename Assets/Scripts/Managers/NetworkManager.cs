@@ -6,6 +6,7 @@ using NetworkDataStuct;
 using SocketIOClient;
 using System;
 using UnityEngine.SceneManagement;
+using System.Threading;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -39,8 +40,8 @@ public class NetworkManager : MonoBehaviour
         await this.netHandler.connect();
         this.initReciver();
 
-        SceneManager.sceneLoaded -= this.onSceneLoaded;
-        SceneManager.sceneLoaded += this.onSceneLoaded;
+        //SceneManager.sceneLoaded -= this.onSceneLoaded;
+        //SceneManager.sceneLoaded += this.onSceneLoaded;
     }
 
     private void OnDestroy()
@@ -60,36 +61,46 @@ public class NetworkManager : MonoBehaviour
     #region [ Reciever ]
     private void onLoginSucceed(SocketIOResponse data)
     {
-        Debug.Log("LoginSucceed");
-        Util.logData<DataOnLoginSucceed>(data);
-        // go to lobby scene
-        MainManager.getInstance().changeSceneToLobby();
+        this.executeListenerOnMainThread(() =>
+        {
+            Debug.Log("LoginSucceed");
+            Util.logData<DataOnLoginSucceed>(data);
+            MainManager.getInstance().changeSceneToLobby();
 
-        DataPlayer playerData = JsonUtility.FromJson<DataPlayer>(data.GetValue<string>(0));
-        PlayerDataContainer.getInstance().setPlayerData(playerData);
+            DataPlayer playerData = JsonUtility.FromJson<DataPlayer>(data.GetValue<string>(0));
+            PlayerDataContainer.getInstance().setPlayerData(playerData);
+        });
     }
 
     private void onEnterLobbySucceed(SocketIOResponse data)
     {
-        Util.logData<DataOnEnterLobbySucceed>(data);
-        LobbyManager manager = (LobbyManager)this.currentManager;
-        manager.onEnterLobbySucceed();
+        this.executeListenerOnMainThread(() =>
+        {
+            Util.logData<DataOnEnterLobbySucceed>(data);
+            GameObject.Find("LobbyManager").GetComponent<LobbyManager>().onEnterLobbySucceed();
+        });
     }
 
     private void onGetLobbyRooms(SocketIOResponse data)
     {
         Util.logData<DataOnGetLobbyRooms>(data);
-        // Draw Rooms in the Lobby Scroll View
-        DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
-        playerData.roomid = JsonUtility.FromJson<DataOnGameRoom>(data.GetValue<string>(0)).roomData.roomid;
-        PlayerDataContainer.getInstance().setPlayerData(playerData);
-        LobbyManager manager = (LobbyManager)this.currentManager;
-        manager.onEnterRoomSucceed();
     }
 
     public void onGameRoomData(SocketIOResponse data)
     {
-        Util.logData<DataOnGameRoom>(data);
+        this.executeListenerOnMainThread(() =>
+        {
+            Util.logData<DataOnGameRoom>(data);
+            DataOnGameRoom parsedData = JsonUtility.FromJson<DataOnGameRoom>(data.GetValue<string>(0));
+
+            // Draw Rooms in the Lobby Scroll View
+            DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
+            playerData.roomid = parsedData.roomData.roomid;
+            PlayerDataContainer.getInstance().setPlayerData(playerData);
+            PlayerDataContainer.getInstance().setRoomData(parsedData.roomData);
+
+            GameObject.Find("LobbyManager").GetComponent<LobbyManager>().onEnterRoomSucceed();
+        });
     }
 
     public void onLeaveGameRoom(SocketIOResponse data)
@@ -172,5 +183,11 @@ public class NetworkManager : MonoBehaviour
         {
             this.currentManager = GameObject.Find("LobbyManager").GetComponent<LobbyManager>();
         }
+    }
+
+    private void executeListenerOnMainThread(Action cb)
+    {
+        Debug.Log(Thread.CurrentThread == MainManager.mainThread);
+        UnityMainThreadDispatcher.Instance().Enqueue(cb);
     }
 }
