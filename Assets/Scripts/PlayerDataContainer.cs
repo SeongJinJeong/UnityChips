@@ -16,6 +16,8 @@ public class PlayerDataContainer
     private DataPlayer playerInfo = null;
     public void setPlayerData(DataPlayer data)
     {
+        if (data.roomid == null)
+            data.roomid = data.id;
         this.playerInfo = data;
         Debug.Log(JsonUtility.ToJson(data));
     }

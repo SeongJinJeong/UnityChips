@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using NetworkDataStuct;
 
 public class LobbyManager : MonoBehaviour
 {
@@ -17,11 +18,11 @@ public class LobbyManager : MonoBehaviour
 
     private void Update()
     {
-        if(this._lobbyEnterSucceed == true)
-        {
-            this._onEnterLobbySucceed();
-            this._lobbyEnterSucceed = false;
-        }
+        //if(this._lobbyEnterSucceed == true)
+        //{
+        //    this._onEnterLobbySucceed();
+        //    this._lobbyEnterSucceed = false;
+        //}
     }
 
     private void _processEnterLobby()
@@ -38,14 +39,25 @@ public class LobbyManager : MonoBehaviour
     public void onEnterLobbySucceed()
     {
         Debug.Log("Enter Lobby Succeed!");
-        this._lobbyEnterSucceed = true;
+        //this._lobbyEnterSucceed = true;
         this._onEnterLobbySucceed(); // <-- This is not working.
     }
     public void _onEnterLobbySucceed()
     {
-        Destroy(GameObject.FindGameObjectWithTag("GrayLayer"));
-        Destroy(GameObject.FindGameObjectWithTag("Loading"));
-        string userName = PlayerDataContainer.getInstance().getPlayerData().name;
-        NameField.GetComponent<TMP_Text>().text = userName;
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            Destroy(GameObject.FindGameObjectWithTag("GrayLayer"));
+            Destroy(GameObject.FindGameObjectWithTag("Loading"));
+
+            DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
+            NameField.GetComponent<TMP_Text>().text = playerData.name;
+
+            NetworkManager.getInstance().emitEnterRoom(playerData.id);
+        });
+    }
+
+    public void onEnterRoomSucceed()
+    {
+        
     }
 }

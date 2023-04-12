@@ -108,6 +108,7 @@ namespace NetworkDataStuct
     {
         public string name;
         public string id;
+        public string roomid;
     }
     #endregion
 }

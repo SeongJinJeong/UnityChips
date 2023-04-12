@@ -80,6 +80,11 @@ public class NetworkManager : MonoBehaviour
     {
         Util.logData<DataOnGetLobbyRooms>(data);
         // Draw Rooms in the Lobby Scroll View
+        DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
+        playerData.roomid = JsonUtility.FromJson<DataOnGameRoom>(data.GetValue<string>(0)).roomData.roomid;
+        PlayerDataContainer.getInstance().setPlayerData(playerData);
+        LobbyManager manager = (LobbyManager)this.currentManager;
+        manager.onEnterRoomSucceed();
     }
 
     public void onGameRoomData(SocketIOResponse data)
