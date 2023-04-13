@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,38 +6,52 @@ using UnityEngine;
 namespace NetworkDataStuct
 {
     #region [ Emitter ]
+    [Serializable]
     public class EmitDataLogin
     {
         public string name;
     }
 
+    [Serializable]
     public class EmitDataEnterLobby
     {
 
     }
 
+    [Serializable]
     public class EmitDataGetLobbyRooms
     {
 
     }
 
+    [Serializable]
     public class EmitDataEnterRoom
     {
         public string roomid;
     }
 
+
+    [Serializable]
+    public class EmitDataGetRoomData
+    {
+        public string roomid;
+    }
+
+    [Serializable]
     public class EmitDataChatRoom
     {
         public string msg;
         public string roomid;
     }
 
+    [Serializable]
     public class EmitDataLeaveGameRoom
     {
         public string roomid;
     }
 
     // IN GAME
+    [Serializable]
     public class EmitDataGameStart
     {
         public string roomid;
@@ -46,11 +61,13 @@ namespace NetworkDataStuct
         public int entryFee;
     }
 
+    [Serializable]
     public class EmitDataPlayerReady
     {
         public string roomid;
     }
 
+    [Serializable]
     public class EmitDataPlayerBet
     {
         public string roomid;
@@ -59,6 +76,7 @@ namespace NetworkDataStuct
 
     #endregion
     #region [ Reciver ]
+    [Serializable]
     public class DataOnLoginSucceed
     {
         public int code;
@@ -66,37 +84,42 @@ namespace NetworkDataStuct
         public int id;
     }
 
-
+   [Serializable]
     public class DataOnEnterLobbySucceed
     {
         public int code;
     }
 
-    public interface DataRoomData
+    [Serializable]
+    public class DataRoomData
     {
-        public string roomid { get; set; }
-        public string roomName { get; set; }
-        public int playerCount { get; set; }
+        public string roomid;
+        public int playerCount;
 
     }
-    public interface DataRoomPlayers
+
+    [Serializable]
+    public class DataRoomPlayers
     {
-        string name { get; set; }
+        public string name;
     }
 
+    [Serializable]
     public class DataOnGetLobbyRooms
     {
         public int code;
         public List<DataRoomData> rooms;
     }
 
+    [Serializable]
     public class DataOnGameRoom
     {
         public int code;
         public DataRoomData roomData;
-        public List<DataRoomPlayers> roomPlayers;
+        public DataRoomPlayers[] roomPlayers;
     }
 
+    [Serializable]
     public class DataOnLeaveGameRoom
     {
         public int code;
@@ -104,6 +127,7 @@ namespace NetworkDataStuct
     #endregion
 
     #region
+    [Serializable]
     public class DataPlayer
     {
         public string name;

@@ -95,9 +95,11 @@ public class NetworkManager : MonoBehaviour
 
             // Draw Rooms in the Lobby Scroll View
             DataPlayer playerData = PlayerDataContainer.getInstance().getPlayerData();
+            Debug.Log(playerData.id);
             playerData.roomid = parsedData.roomData.roomid;
             PlayerDataContainer.getInstance().setPlayerData(playerData);
             PlayerDataContainer.getInstance().setRoomData(parsedData.roomData);
+            Debug.Log(PlayerDataContainer.getInstance().getRoomData().playerCount);
 
             GameObject.Find("LobbyManager").GetComponent<LobbyManager>().onEnterRoomSucceed();
         });
@@ -133,6 +135,13 @@ public class NetworkManager : MonoBehaviour
         EmitDataEnterRoom data = new EmitDataEnterRoom();
         data.roomid = roomid;
         this.netHandler.emit("onEnterRoom", Util.toJson(data));
+    }
+
+    public void emitGetRoomData(string roomid)
+    {
+        EmitDataGetRoomData data = new EmitDataGetRoomData();
+        data.roomid = roomid;
+        this.netHandler.emit("onGetRoomData", Util.toJson(data));
     }
 
     public void emitChatRoom(string msg, string roomid)

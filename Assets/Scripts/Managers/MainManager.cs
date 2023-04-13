@@ -6,8 +6,6 @@ using System.Threading;
 
 public class MainManager : MonoBehaviour
 {
-    public static string currScene = "";
-
     static public Thread mainThread;
     static private MainManager instance;
     private void Awake()
@@ -23,10 +21,6 @@ public class MainManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-    private void Start()
-    {
-        mainThread = Thread.CurrentThread;
-    }
     public static MainManager getInstance()
     {
         if (instance == null)
@@ -35,20 +29,15 @@ public class MainManager : MonoBehaviour
         return instance;
     }
 
-    private bool isLoadLobby = false;
-    private void Update()
-    {
-        if(this.isLoadLobby == true)
-        {
-            StartCoroutine(loadLobbyScene());
-            this.isLoadLobby = false;
-            currScene = "Lobby";
-        }
-    }
 
+    // Main
+    private GameObject grayLayer = null;
+    private void Start()
+    {
+        mainThread = Thread.CurrentThread;
+    }
     private void OnEnable()
     {
-        //StartCoroutine(loadLobbyScene());
         this.initScreenResolution();
     }
 
@@ -62,7 +51,7 @@ public class MainManager : MonoBehaviour
 
     public void changeSceneToLobby()
     {
-        //this.isLoadLobby = true;
+        this.spawnGrayLayer();
         StartCoroutine(loadLobbyScene());
     }
 
@@ -75,4 +64,15 @@ public class MainManager : MonoBehaviour
             yield return null;
         }
     }
+    public void spawnGrayLayer()
+    {
+        GameObject gray = Resources.Load<GameObject>("Prefabs/Common/GrayLoading");
+        this.grayLayer = Instantiate<GameObject>(gray);
+    }
+    public void removeGrayLayer()
+    {
+        Destroy(this.grayLayer);
+        this.grayLayer = null;
+    }
+    
 }
