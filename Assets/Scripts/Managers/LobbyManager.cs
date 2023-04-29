@@ -24,12 +24,17 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        this._init();
         btnJoin.onClick.AddListener(()=> { this.onButtonClick(btnJoin); });
         btnJoin.onClick.AddListener(() => { this.onBtnJoinClick(btnJoin); });
 
         btnStart.interactable = false;
 
         this._processEnterLobby();
+    }
+    private void _init()
+    {
+        this.mainManager = GameObject.Find("MainManager").GetComponent<MainManager>();
     }
 
     private void _processEnterLobby()
